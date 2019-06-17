@@ -3,6 +3,7 @@ package com.hopedc.learn.stream.normal;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,14 +13,15 @@ public class Example {
     private static List<RequestMethod> requestMethods;
     static {
         requestMethods = new ArrayList<>();
-        requestMethods.add(new RequestMethod.RequestMethodBuilder().name("test1").desc("desc1").argsNum(1).build());
         requestMethods.add(new RequestMethod.RequestMethodBuilder().name("test2").desc("desc2").argsNum(2).build());
+        requestMethods.add(new RequestMethod.RequestMethodBuilder().name("test1").desc("desc1").argsNum(1).build());
         requestMethods.add(new RequestMethod.RequestMethodBuilder().name("test3").desc("desc3").argsNum(3).build());
     }
 
     public static void main(String[] args) {
         getListName();
         getListToMap();
+        sortList();
     }
 
     private static void getListName(){
@@ -53,5 +55,12 @@ public class Example {
     }
 
 
+    /**
+     * 排序功能 以前我们可以通过Collections.sort方式对list进行排序 现在有了新的方式
+     */
+    private static void sortList(){
+        List<RequestMethod> sortedList = requestMethods.stream().sorted(Comparator.comparing(RequestMethod::getName).reversed()).collect(Collectors.toList());
+        System.out.println("sortedList:"+JSON.toJSONString(sortedList));
+    }
 
 }
