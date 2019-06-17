@@ -22,6 +22,7 @@ public class Example {
         getListName();
         getListToMap();
         sortList();
+        joinListStr();
     }
 
     private static void getListName(){
@@ -61,6 +62,14 @@ public class Example {
     private static void sortList(){
         List<RequestMethod> sortedList = requestMethods.stream().sorted(Comparator.comparing(RequestMethod::getName).reversed()).collect(Collectors.toList());
         System.out.println("sortedList:"+JSON.toJSONString(sortedList));
+    }
+
+    /**
+     * 列表字段用不惯逗号分割拼接
+     */
+    private static void joinListStr(){
+        String joinListStr = requestMethods.stream().map(RequestMethod::getName).collect(Collectors.joining(","));
+        System.out.println("joinListStr:"+joinListStr);
     }
 
 }
